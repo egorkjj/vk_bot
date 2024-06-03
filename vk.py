@@ -95,10 +95,6 @@ async def vk_apply() -> None:
                         #шаг, на котором сейчас пользователь в воронке
                         step = user_step_check(name_short)
 
-                        #если дошел до конца скип
-                        if step == 10:
-                            continue
-
                         # processing_messages
                         if request == "Начать":  #step2
                             user_step_change(name_short, 2)
