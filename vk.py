@@ -37,8 +37,8 @@ async def vk_apply() -> None:
             #клавиатура для двух последних шагов
             def create_last_kb(text) -> str:
                 keyboard = VkKeyboard(inline=True)
-                keyboard.add_button(f'{text}', color= VkKeyboardColor.POSITIVE)
                 keyboard.add_button("Перейти к заданиям", color = VkKeyboardColor.POSITIVE)
+                keyboard.add_button(f'{text}', color= VkKeyboardColor.POSITIVE)
                 return keyboard.get_keyboard()
             
             #отправка фото
