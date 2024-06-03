@@ -141,7 +141,7 @@ async def vk_apply() -> None:
                         elif request == "Ожидаю менеджера": # !! final step !!
                             loop(name_short,10)
                             #send message with bot
-                            # await bot.send_message(chat_id = 398346500, text= f"Пользователь https://vk.com/{name_short} ожидает менеджера")
+                            await bot.send_message(chat_id = 398346500, text= f"Пользователь https://vk.com/{name_short} ожидает менеджера")
                             user_step_change(name_short, 10)
 
                         elif request == "Вернуться к последнему шагу": #логика возвращения к предыдущему шагу
