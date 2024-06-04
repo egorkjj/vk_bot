@@ -71,7 +71,7 @@ async def vk_apply() -> None:
             def sent_for_th(user_id, user_name):
                 if not for_th(user_name):
                     return
-                time.sleep(86400)
+                time.sleep(10)
                 if user_step_check(user_name) == 10:
                     return
                 if user_step_check(user_name) != 7:
