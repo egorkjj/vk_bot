@@ -2,7 +2,7 @@ import vk_api
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 from vk_api.longpoll import VkLongPoll, VkEventType
 from environs import Env
-from DBSM import user_step_change, all_link, user_step_check, for_th, loop
+from DBSM import user_step_change, all_link, user_step_check, for_th, loop, disable_messages, is_disabled
 from aiogram import Bot
 from threading import Thread as th
 import asyncio
@@ -71,16 +71,17 @@ async def vk_apply() -> None:
             def sent_for_th(user_id, user_name):
                 if not for_th(user_name):
                     return
-                time.sleep(84600)
+                time.sleep(86400)
                 if user_step_check(user_name) == 10:
                     return
                 if user_step_check(user_name) != 7:
+                    disable_messages(user_name)
                     links = links_text()
                     write_msg(user_id, f"Добрый день, ранее вы интересовались онлайн заработком на платформе WorkPoint, высылаем вам актуальный список заданий, выплату за который можно получить уже сегодня:\n{links}", None)
                 else:
+                    disable_messages(user_name)
                     write_msg(user_id, f"Добрый день, ранее вы получили список заданий от платформы онлайн подработки WorkPoint, подскажите, удалось ли оформить карты?", None)
-
-
+            
             # Работа с сообщениями
             longpoll = VkLongPoll(vk)
 
@@ -187,6 +188,8 @@ async def vk_apply() -> None:
                                 write_msg(event.user_id, "Я не смог распознать ваше сообщение, чтобы начать нажмите кнопку Начать", keyboard.get_keyboard())
                         
                         else: #обработка левых сообщений
+                            if is_disabled(name_short):
+                                continue
                             if step == 0:
                                 keyboard = VkKeyboard(one_time=True)
                                 keyboard.add_button(f'Начать', color= VkKeyboardColor.POSITIVE)

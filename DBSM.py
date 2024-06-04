@@ -29,6 +29,7 @@ class User(Base): #пользователи
     step = Column(Integer, nullable=False)
     message_sent = Column(Boolean, nullable=True)
     no_stat = Column(Boolean, nullable = True)
+    disable_mess = Column(Boolean, nullable = True)
 
 class Links(Base): #ссылки
     __tablename__ = "links"
@@ -140,6 +141,22 @@ def loop(user, step):
             curr.step10 = date
     session.commit()
     session.close()
+
+
+def disable_messages(username):
+    Session = sessionmaker()
+    session = Session(bind = engine)
+    curr = session.query(User).filter(User.username == username).first()
+    curr.disable_mess = True
+    session.commit()
+    session.close()
+
+def is_disabled(username):
+    Session = sessionmaker()
+    session = Session(bind = engine)
+    curr = session.query(User).filter(User.username == username).first()
+    session.close()
+    return curr.disable_mess
 
 
 
