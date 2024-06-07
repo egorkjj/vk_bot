@@ -79,8 +79,10 @@ async def vk_apply() -> None:
                     links = links_text()
                     write_msg(user_id, f"Добрый день, ранее вы интересовались онлайн заработком на платформе WorkPoint, высылаем вам актуальный список заданий, выплату за который можно получить уже сегодня:\n{links}", None)
                 else:
-                    disable_messages(user_name)
-                    write_msg(user_id, f"Добрый день, ранее вы получили список заданий от платформы онлайн подработки WorkPoint, подскажите, удалось ли оформить карты?", None)
+                    time.sleep(86400)
+                    if user_step_check(user_name) != 10:
+                        disable_messages(user_name)
+                        write_msg(user_id, f"Добрый день, ранее вы получили список заданий от платформы онлайн подработки WorkPoint, подскажите, удалось ли оформить карты?", None)
             
             # Работа с сообщениями
             longpoll = VkLongPoll(vk)
